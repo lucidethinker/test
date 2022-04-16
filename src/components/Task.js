@@ -1,15 +1,12 @@
+import {FaTimes} from 'react-icons/fa'
 
 
-const Tasks=({tasks}) =>
-{
-
+const Task = ( { task }) => {
     return(
-        <>
-       { 
-        tasks.map((task) =>(
-       <h3 key={task.id}>{task.text}</h3>
-       ))}
-        </>
+        <div className="task">
+            <h3>{task.text} <FaTimes style={{color:'red',cursor:'pointer'}}/></h3>
+            <p>{task.dat}</p>
+        </div>
     )
 }
-export default Tasks
+export default Task
