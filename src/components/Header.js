@@ -12,7 +12,7 @@ export const Header = ({title,onAdd ,showAdd}) => {
   )
 }
 Header.defaultProps = {
-title:'Task Tracker',
+title:'Todo ',
 }
 
 Header.propTypes={

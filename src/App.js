@@ -1,7 +1,10 @@
 import Header from './components/Header';
+import{BrowserRouter as Router,Route,Routes} from 'react-router-dom'
+import Footer from './components/Footer';
 import Tasks from './components/Tasks';
 import {useState,useEffect} from 'react';
-import Addtask from './components/Addtask' 
+import Addtask from './components/Addtask'; 
+import About from './components/About';
 
 const App = () =>{
     const [showAddTask,setShowAddTask] = useState(false)
@@ -91,20 +94,34 @@ const data = await res.json()
 
 
   return (
+    <Router>
     <div className="container" >
 
     <Header  onAdd={()=>setShowAddTask(!showAddTask)}
     showAdd={showAddTask} />
-    {showAddTask &&<Addtask onAdd={addTask } />}
-    {
-
-      tasks.length >0 ? 
-      (
-       <Tasks tasks={tasks}  onDelete={deleteTask} onToggle={toggleReminder}/>
-      ):'No Task to show'
-    }
-
+   
+   <Routes>
+     <Route path='/' 
+     element={
+              <>
+                {showAddTask && <Addtask onAdd={addTask} />}
+                {tasks.length > 0 ? (
+                  <Tasks
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                  />
+                ) : (
+                  'No Tasks To Show'
+                )}
+              </>
+            }
+          />
+    <Route path="/about" element={<About />} />
+     </Routes>
+     <Footer/>
     </div>
+    </Router>
 
     
     )
