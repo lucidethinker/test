@@ -3,12 +3,31 @@ import { useState } from 'react'
 
 
 
-const Addtask = () => {
+const Addtask = ({ onAdd}) => {
   const [text,setext]=useState('')
   const [dat,setday]=useState('')
   const [reminder,setreminder]=useState('false')
+    const onSubmit = (e => {
+        e.preventDefault()
+
+        if(!text){
+            alert("please add a task")
+            return
+
+        }
+        onAdd({text,dat,reminder})
+
+
+        setext('')
+        setday('')
+        setreminder(false)
+    })
+
+
+
+
   return (
-    <form className='add-forms'>
+    <form className='add-forms' onSubmit={onSubmit}>
         <div className='form-control'>
         <label className='form-control label'>Task</label>
             <input type='text' 
