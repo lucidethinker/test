@@ -5,17 +5,30 @@ import Tasks from './components/Tasks';
 import {useState,useEffect} from 'react';
 import Addtask from './components/Addtask'; 
 import About from './components/About';
+import { css } from "@emotion/react";
+
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override = css`
+  display: block;
+  margin:  0 auto;
+  padding: 300px;
+  text-align: center;
+`;
+
 
 const App = () =>{
     const [showAddTask,setShowAddTask] = useState(false)
     const[tasks,setTasks] = useState([])
+    const [loading,setLoading] = useState(false)
   
   
     useEffect(() => {
+      setLoading(true)
         const getTasks = async() =>{
           const tasksFromServer = await fetchTasks()
           setTasks(tasksFromServer)
-
+          setLoading(false)
         }
    
      getTasks()
@@ -94,8 +107,22 @@ const data = await res.json()
 
 
   return (
+    
     <Router>
+       {
+        loading ?
+        
+        <ClipLoader 
+        css ={override}
+         size={40}
+         color={'#1276EF'}
+         loading = {loading }
+   />
+        :
+    
+    
     <div className="container" >
+ 
 
     <Header  onAdd={()=>setShowAddTask(!showAddTask)}
     showAdd={showAddTask} />
@@ -121,8 +148,9 @@ const data = await res.json()
      </Routes>
      <Footer/>
     </div>
+       }
     </Router>
-
+       
     
     )
 }
